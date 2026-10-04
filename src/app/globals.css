@@ -1,0 +1,222 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Design tokens — Quarto Sono
+   Cores, tipografia, espaçamento, raio, motion e breakpoints.
+   ========================================================================== */
+@theme {
+  /* Paleta */
+  --color-paper: #f5f2ec;
+  --color-linen: #e6dfd5;
+  --color-sand: #bfb5a7;
+  --color-stone: #8a8177;
+  --color-graphite: #262626;
+  --color-ink: #0d0d0d;
+  --color-white: #ffffff;
+  --color-danger: #9b3b2f;
+  --color-success: #3f5b45;
+
+  /* Tipografia */
+  --font-sans: var(--font-instrument-sans), "Manrope", "Inter", system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), "Times New Roman", serif;
+
+  --text-display: clamp(2.75rem, 1.2rem + 7.2vw, 9.375rem); /* 44 → 150px */
+  --text-display--line-height: 0.92;
+  --text-display--letter-spacing: -0.035em;
+  --text-headline: clamp(2.625rem, 1.6rem + 4.4vw, 6rem); /* 42 → 96px */
+  --text-headline--line-height: 0.95;
+  --text-headline--letter-spacing: -0.03em;
+  --text-title: clamp(1.75rem, 1.3rem + 1.8vw, 3rem);
+  --text-title--line-height: 1.02;
+  --text-title--letter-spacing: -0.02em;
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--letter-spacing: 0.16em;
+
+  /* Espaçamento editorial */
+  --spacing-gutter: clamp(1rem, 0.6rem + 1.8vw, 2.5rem);
+  --spacing-section: clamp(6rem, 4rem + 9vw, 12rem);
+
+  /* Raio */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-pill: 999px;
+
+  /* Motion */
+  --ease-calm: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-editorial: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-soft: cubic-bezier(0.33, 0, 0.2, 1);
+  --duration-fast: 220ms;
+  --duration-normal: 420ms;
+  --duration-editorial: 900ms;
+
+  /* Breakpoints */
+  --breakpoint-xs: 23.4375rem; /* 375 */
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem; /* 768 */
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+}
+
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-graphite);
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-paper);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-graphite);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-graphite);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .on-dark :focus-visible,
+  .on-dark:focus-visible {
+    outline-color: var(--color-paper);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  img {
+    -webkit-user-drag: none;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    font-size: var(--text-eyebrow);
+    letter-spacing: var(--text-eyebrow--letter-spacing);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .container-editorial {
+    width: 100%;
+    max-width: 120rem;
+    margin-inline: auto;
+    padding-inline: var(--spacing-gutter);
+  }
+
+  /* Linhas finas de coluna, como num caderno de arquitetura */
+  .hairline {
+    background-color: color-mix(in oklab, var(--color-graphite) 12%, transparent);
+  }
+
+  /* Superfícies abstratas (ocupam o lugar de fotos ainda não cadastradas) */
+  .surface-linen {
+    background:
+      radial-gradient(120% 80% at 20% 100%, #d9cfc1 0%, transparent 60%),
+      linear-gradient(180deg, #ece6dc 0%, #e0d7ca 100%);
+  }
+  .surface-sand {
+    background:
+      radial-gradient(110% 90% at 80% 90%, #a99d8d 0%, transparent 62%),
+      linear-gradient(180deg, #d8cfc2 0%, #bfb5a7 100%);
+  }
+  .surface-stone {
+    background:
+      radial-gradient(100% 80% at 30% 85%, #6f675e 0%, transparent 60%),
+      linear-gradient(180deg, #a59b8f 0%, #8a8177 100%);
+  }
+  .surface-graphite {
+    background:
+      radial-gradient(120% 90% at 70% 100%, #3a3836 0%, transparent 60%),
+      linear-gradient(180deg, #2c2b2a 0%, #1a1a1a 100%);
+  }
+
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.07;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size var(--duration-normal) var(--ease-calm);
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .pb-safe {
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Reveal genérico controlado por data-attribute (ver components/motion/Reveal) */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity var(--duration-editorial) var(--ease-calm),
+    transform var(--duration-editorial) var(--ease-calm);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js [data-reveal="in"] {
+  opacity: 1;
+  transform: none;
+}
+
+.js [data-mask-reveal] {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1100ms var(--ease-editorial);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js [data-mask-reveal="in"] {
+  clip-path: inset(0 0 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+  .js [data-reveal],
+  .js [data-mask-reveal] {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+  }
+}
