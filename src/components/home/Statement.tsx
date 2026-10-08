@@ -47,16 +47,17 @@ export function Statement({ image, imageAlt }: { image: string | null; imageAlt:
           .fromTo("[data-photo]", { scale: 1.18 }, { scale: 1, duration: 1.2 }, 0)
           .fromTo("[data-intro]", { opacity: 1, yPercent: 0 }, { opacity: 0, yPercent: -40, duration: 0.35 }, 0.05)
           .fromTo("[data-veil]", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.75)
+          // y: 0 zera o translateY(110%) inline, que o GSAP leria como `y` em px e somaria ao yPercent
           .fromTo(
             "[data-line-a] [data-l]",
-            { yPercent: 110 },
-            { yPercent: 0, duration: 0.45, stagger: 0.06, ease: "power3.out" },
+            { y: 0, yPercent: 110 },
+            { y: 0, yPercent: 0, duration: 0.45, stagger: 0.06, ease: "power3.out" },
             0.85,
           )
           .fromTo(
             "[data-line-b] [data-l]",
-            { yPercent: 110 },
-            { yPercent: 0, duration: 0.45, stagger: 0.06, ease: "power3.out" },
+            { y: 0, yPercent: 110 },
+            { y: 0, yPercent: 0, duration: 0.45, stagger: 0.06, ease: "power3.out" },
             1.25,
           )
           .fromTo("[data-cta]", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.3 }, 1.6)
@@ -113,7 +114,7 @@ export function Statement({ image, imageAlt }: { image: string | null; imageAlt:
           >
             <span data-line-a className="block">
               {lineA.map((l) => (
-                <span key={l} className="block overflow-hidden pb-[0.05em]">
+                <span key={l} className="-mt-[0.12em] block overflow-hidden pb-[0.05em] pt-[0.12em]">
                   <span data-l className="block" style={reduced ? undefined : { transform: "translateY(110%)" }}>
                     {l}
                   </span>

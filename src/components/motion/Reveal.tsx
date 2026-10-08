@@ -39,7 +39,9 @@ export function Reveal({ as = "div", mask, delay = 0, className, children, style
       },
       { rootMargin: "0px 0px -8% 0px", threshold: 0.01 },
     );
-    io.observe(el);
+    // Com máscara o elemento começa 100% recortado (área zero para o IntersectionObserver),
+    // então observamos o pai.
+    io.observe(mask ? (el.parentElement ?? el) : el);
     return () => io.disconnect();
   }, [mask]);
 
